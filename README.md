@@ -18,8 +18,8 @@ Home page (access for registered user only):
 
 Note: Check the message that is displayed. This is flash messages of Flask - backend module of Python.
 
-To run the application simply run the main.py file:
+# Running the App:
 python main.py
 
-Viewing the App:
+# Viewing the App:
 Go to URL: http://127.0.0.1:5000
