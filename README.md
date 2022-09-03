@@ -1,4 +1,4 @@
-# NotesMaster-FullStack-WebApp
+# Description
 FullStack Web Application, with BackEnd in Python (Flask) and FrontEnd with HTML.
 Simple login-signup-logout system.
 The main branch (name: 'main') is a very basic Web App.
