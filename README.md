@@ -1,6 +1,6 @@
 # NotesMaster-FullStack-WebApp
 FullStack Web Application, with BackEnd in Python (Flask) and FrontEnd with HTML.
-I used Jinja templating language for the Web pages.
+Simple login-signup-logout system.
 The main branch (name: 'main') is a very basic Web App.
 In other branches I will add pages or features like: 
 Profile page, Home page with Images and Animations and many other interesting features.
