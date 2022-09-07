@@ -38,11 +38,13 @@ def logout():
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
+        # Get content from <form> request
         email = request.form.get('email')
         full_name = request.form.get('full_name')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         user = User.query.filter_by(email=email).first()
+        # Validation checks
         if user:
             flash('Email already exists.', category='error')
         elif len(email) < 4:
@@ -54,6 +56,7 @@ def sign_up():
         elif password1 != password2:
             flash('Passwords don\'t match.', category='error')
         else:
+            # Add new User to database
             new_user = User(email=email, full_name=full_name, password=generate_password_hash(
                 password1, method='sha256'))
             db.session.add(new_user)
@@ -61,5 +64,6 @@ def sign_up():
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
+            
 
     return render_template("sign_up.html", user=current_user)
