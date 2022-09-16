@@ -3,17 +3,20 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+from .forms import LoginForm, SignupForm, ProfileForm
 
 
 auth = Blueprint('auth', __name__)
 
 
-# View function for the operations: login, logout and sign up
+# Login
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+    form = LoginForm()
+
+    if form.validate_on_submit():  # if POST request
+        email = form.email.data
+        password = form.password.data
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
@@ -25,24 +28,20 @@ def login():
         else:
             flash('Email does not exist.', category='error')
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", user=current_user, form=form)
 
 
-@auth.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('auth.login'))
-
-
+# Sign Up
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    if request.method == 'POST':
+    form = SignupForm()
+
+    if form.validate_on_submit():
         # Get content from <form> request
-        email = request.form.get('email')
-        full_name = request.form.get('full_name')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
+        email = form.email.data
+        full_name = form.full_name.data
+        password1 = form.password1.data
+        password2 = form.password2.data
         user = User.query.filter_by(email=email).first()
         # Validation checks
         if user:
@@ -64,6 +63,13 @@ def sign_up():
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
-            
 
-    return render_template("sign_up.html", user=current_user)
+    return render_template("sign_up.html", user=current_user, form=form)
+
+
+# Log Out
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))

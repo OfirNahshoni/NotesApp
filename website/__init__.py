@@ -2,9 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
-db = SQLAlchemy()
-DB_NAME = "notes-master-database.db"
+bootstrap = Bootstrap()  # Bootstrap for FlaskForms
+db = SQLAlchemy()  # Database
+DB_NAME = "notes-master-database.db"  # Name of the database
 
 def create_app():
     # Create Flask object
@@ -13,6 +15,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+    bootstrap.init_app(app)
 
     from .views import views
     from .auth import auth

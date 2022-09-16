@@ -1,19 +1,15 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from .models import User, Note, Profile
+from .forms import ProfileForm
+from .models import User, Note
 from . import db
 import json
+import base64
 
-# # For uploading and downloading a file from or to database
-# from io import BytesIO
-# from flask import send_file
 
 views = Blueprint('views', __name__)
 
-"""
-Handle home routes
-"""
 
 # Route for Adding Notes or get back to Home Web page
 @views.route('/', methods=['GET', 'POST'])
@@ -21,7 +17,6 @@ Handle home routes
 def home():
     if request.method == 'POST':
         note = request.form.get('note')
-
         if len(note) < 1:
             flash('Note is too short!', category='error')
         else:
@@ -39,6 +34,7 @@ def delete_note():
     note = json.loads(request.data)
     noteId = note['noteId']
     note = Note.query.get(noteId)
+
     if note:
         if note.user_id == current_user.id:
             db.session.delete(note)
@@ -48,95 +44,67 @@ def delete_note():
     return jsonify({})
 
 
-"""
-Handle Profile routes
-"""
-
 # Route for display the Profile page
 @views.route('/profile')
 @login_required
 def display_profile():
-    profile = Profile.query.filter_by(user_id=current_user.id).first()
-    return render_template('profile.html', user=current_user, profile=profile)
+    user = User.query.filter_by(id=current_user.id).first()
+    is_profile_exist = True
 
+    img = ''
+    if user.img:
+        img = base64.b64encode(user.img).decode()
+    if not user.nickname and not user.phone_number and not user.state and not user.city  and not user.profession and not user.addition_details:
+        is_profile_exist = False
 
-# Route for creating the Profile
-@views.route('/create-profile', methods=['GET', 'POST'])
-@login_required
-def create_profile():
-    if request.method == 'POST':
-        # Get content from <form> request
-        nickname = request.form.get('nickname')
-        phone_number = request.form.get('phone_number')
-        is_number = phone_number.isnumeric()  # Check if phone number is numeric
-        state = request.form.get('state')
-        city = request.form.get('city')
-        gender = request.form.get('gender')
-        user_type = request.form.get('user_type')
-        profession = request.form.get('profession')
-        addition_details = request.form.get('addition_details')
-        img = request.files['profile_image']
-        img_name = secure_filename(img.filename)
-        # Validation checks
-        if len(nickname) < 2:
-            flash('Nickname must be at least 2 characters', category='error')
-        elif not is_number:
-            flash('Phone number must contain digits only', category='error')
-        elif len(phone_number) != 10:
-            flash('Phone number must be exactly 10 digits', category='error')
-        elif not gender:
-            flash('Please choose your gender', category='error')
-        elif not user_type:
-            flash('Please enter your type as a user', category='error')
-        # Upload details (replace profile image to the uploaded image)
-        else:
-            profile_to_add = Profile(nickname=nickname, phone_number=phone_number, state=state,
-                                    city=city, gender=gender, user_type=user_type, profession=profession,
-                                    addition_details=addition_details, img=img.read(), img_filename=img_name, user_id=current_user.id)
-            db.session.add(profile_to_add)
-            db.session.commit()
-            flash('Your profile has been created', category='success')
-            return redirect(url_for('views.display_profile'))
-
-    return render_template('edit_profile.html', user=current_user, profile=None)
+    return render_template('profile.html', user=current_user, img=img, is_profile_exist=is_profile_exist)
  
  
 @views.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
 def update_profile():
-    profile_db = Profile.query.filter_by(user_id=current_user.id).first()
-    if request.method == 'POST':
-        img = request.files['profile_image']
-        img_name = secure_filename(img.filename)
-        profile_db.nickname = request.form.get('nickname')
-        profile_db.phone_number = request.form.get('phone_number')
-        profile_db.state = request.form.get('state')
-        profile_db.city = request.form.get('city')
-        profile_db.gender = request.form.get('gender')
-        profile_db.user_type = request.form.get('user_type')
-        profile_db.profession = request.form.get('profession')
-        profile_db.addition_details = request.form.get('addition_details')
-        if not img:
-            profile_db.img_filename = ''
+    form = ProfileForm()
+    user = User.query.filter_by(id=current_user.id).first()
+
+    if form.validate_on_submit():  # POST request
+        user.nickname = form.nickname.data
+        user.phone_number = form.phone_number.data
+        user.state = form.state.data
+        user.city = form.city.data
+        user.gender = form.gender.data
+        user.user_type = form.user_type.data
+        user.profession = form.profession.data
+        user.addition_details = form.addition_details.data
+        img = form.img.data
+        # Checking if image has been inserted and validations
+        if len(form.phone_number.data) != 10:
+            flash('Phone number must be exactly 10 digits', category='error')
+            return redirect(url_for('views.update_profile'))
+        elif not img:
+            user.img_filename, user.img = None, None
         else:
-            profile_db.img = img.read()
-            profile_db.img_filename = img_name
-        db.session.commit()
+            user.img, user.img_filename = form.img.data.read(), secure_filename(img.filename)
+
+        db.session.commit()  # Update changes to database
         return redirect(url_for('views.display_profile'))
-    return render_template('edit_profile.html', user=current_user, profile=profile_db)
+
+    return render_template('edit_profile.html', user=user, form=form)
 
 
-
-# Route for delete Profile
-@views.route('/delete-profile', methods=['POST'])
+@views.route('/delete-profile')
 @login_required
 def delete_profile():
-    profile_to_delete = json.loads(request.data)
-    profile_id = profile_to_delete['profileId']
-    profile_to_delete = Profile.query.get(profile_id)
-    if profile_to_delete:
-        db.session.delete(profile_to_delete)
-        db.session.commit()
-        flash('Your profile has been deleted successfully from database', category='success')
-
-    return jsonify({})
+    user = User.query.filter_by(id=current_user.id).first()
+    user.nickname = None
+    user.phone_number = None
+    user.state = None
+    user.city = None
+    user.gender = None
+    user.user_type = None
+    user.profession = None
+    user.addition_details = None
+    user.img = None
+    user.img_filename = None
+    db.session.commit()
+    flash('Profile has been deleted successfully', category='success')
+    return redirect(url_for('views.display_profile'))
