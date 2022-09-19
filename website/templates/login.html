@@ -1,5 +1,47 @@
 <<<<<<< HEAD
 {% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" id="home" href="/"><i class="fa fa-fw fa-home"></i>Home</a>         
+          <a class="nav-item nav-link" id="signUp" href="/sign-up">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+              <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+            Sign Up
+          </a>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="column is-4 is-offset-4">
+        <h1 class="title">Login</h1>
+        <div class="box">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}
+=======
+<<<<<<< HEAD
+{% extends 'base.html' %}
 
 {% block title %}
     Login
@@ -43,3 +85,4 @@
     </form>
 {% endblock %}
 >>>>>>> 2c0eaf93d5e8dfa9a21d2d9aca443cea47fb8e23
+>>>>>>> 2571ab1e679215ecbdacf533417c5cfa59dd8650
