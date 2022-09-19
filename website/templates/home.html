@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %} 
 {% block title %}
     Home
@@ -58,4 +59,63 @@
         <button type="submit" class="btn btn-primary">Add Note</button>
       </div>
     </form>
+=======
+<<<<<<< HEAD
+{% extends 'base.html' %} 
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <h1 align="center">{{ 'Hi, ' + user.full_name }}</h1>
+    <h2 align="center">Your Notes</h2>
+    <ul class="list-group list-group-flush" id="notes">
+      {% for note in user.notes %}
+      <li class="list-group-item">
+        <h6>Date created: {{ note.date.strftime('%d/%m/%y') }}</h6>
+        <h6>Content:</h6>
+        {{ note.data }}
+        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+    <form method="POST">
+      <textarea name="note" id="note" class="form-control"></textarea>
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+      </div>
+    </form>
+=======
+{% extends 'base.html' %} 
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <h1 align="center">{{ 'Hi, ' + user.full_name }}</h1>
+    <h2 align="center">Your Notes</h2>
+    <ul class="list-group list-group-flush" id="notes">
+      {% for note in user.notes %}
+      <li class="list-group-item">
+        <h6>Date created: {{ note.date.strftime('%d/%m/%y') }}</h6>
+        <h6>Content:</h6>
+        {{ note.data }}
+        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+    <form method="POST">
+      <textarea name="note" id="note" class="form-control"></textarea>
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+      </div>
+    </form>
+>>>>>>> 2c0eaf93d5e8dfa9a21d2d9aca443cea47fb8e23
+>>>>>>> 2571ab1e679215ecbdacf533417c5cfa59dd8650
 {% endblock %}
