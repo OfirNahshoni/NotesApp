@@ -10,7 +10,9 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 
 ## Sign Up page
 
+
 ## Login page
+<img width="763" alt="image" src="https://user-images.githubusercontent.com/58309185/191131539-16808d5c-eef1-42c0-a8d1-e33a07116a78.png">
 
 ## Home page (access for registered user only)
 
