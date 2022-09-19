@@ -62,10 +62,7 @@
                 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
               </svg>
             </a>
-            
-              <!-- Delete Button does not working - redirect to unknown page (404 error) -->
-
-              {% if is_profile_exist == True %}
+            {% if is_profile_exist == True %}
                 <a href="/delete-profile" class="card-link btn btn-danger btn-sm">
                   Delete
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
@@ -79,8 +76,7 @@
                     4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                   </svg>
                 </a>
-              {% endif %}
-           
+             {% endif %}
         </div>
       </div>
     </div>
