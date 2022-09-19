@@ -23,7 +23,7 @@ def home():
             new_note = Note(data=note, user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
-            flash('Note added!', category='success')
+            flash('Note has been added!', category='success')
 
     return render_template('home.html', user=current_user)
 
@@ -35,6 +35,7 @@ def delete_note(id):
     if note_to_delete:
         db.session.delete(note_to_delete)
         db.session.commit()
+        flash('Note has been deleted successfully', category='success')
         return redirect(url_for('views.home'))
     return render_template('home.html', user=current_user)
 
@@ -79,8 +80,8 @@ def update_profile():
             user.img_filename, user.img = None, None
         else:
             user.img, user.img_filename = form.img.data.read(), secure_filename(img.filename)
-
         db.session.commit()  # Update changes to database
+        flash('Your profile has been updated successfully', category='success')
         return redirect(url_for('views.display_profile'))
 
     return render_template('edit_profile.html', user=user, form=form)
