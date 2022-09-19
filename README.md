@@ -8,18 +8,23 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 1) werkzeug.security: generate_password_hash, check_password_hash modules.
 2) flask_login: login_user, login_required, logout_user, current_user
 
-All database operations (POST request) are followed by flash messages (from package flask).
-
 ## Sign Up page
-
 
 ## Login page
 
-
 ## Home page (access for registered user only)
 
+## Adding a note
+
+## Deleting a note
 
 Note: Check the message that is displayed. This is flash messages (flash module of flask Python)
+
+## Profile page (No profile)
+
+## Edit profile page
+
+## Profile page (existing profile)
 
 # Running the App:
 First activate the virtual enviroment by typing (on command line prompt!!):
