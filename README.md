@@ -33,8 +33,11 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 
 # Running the App:
 First activate the virtual enviroment by typing (on command line prompt!!):
+<br />
 env\Scripts\activate (and then you should see '(env)' in the start of the new line)
+<br />
 Then run the Web Server by typing:
+<br />
 python -m main
 
 # Viewing the App:
