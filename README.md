@@ -30,6 +30,7 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 
 # Running the App - type in CMD:
 \env\Scripts\activate <br />
+python -m pip install -r requirements.txt <br />
 python-m main
 
 # Viewing the App:
