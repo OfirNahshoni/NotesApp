@@ -19,11 +19,8 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 ## Login page
 <img width="763" alt="image" src="https://user-images.githubusercontent.com/58309185/191131539-16808d5c-eef1-42c0-a8d1-e33a07116a78.png">
 
-## Home page (access for registered user only)
+## Home page (access for registered users only)
 <img width="953" alt="image" src="https://user-images.githubusercontent.com/58309185/191131704-cbafe2b3-7e42-4618-a2b6-62bd20aa77ea.png">
-
-## Adding a note
-<img width="950" alt="image" src="https://user-images.githubusercontent.com/58309185/191131752-a8ce6d36-0735-4f92-8cef-68e8d1cdaa3e.png">
 
 ## Edit profile page
 <img width="760" alt="image" src="https://user-images.githubusercontent.com/58309185/191132019-60aa3c1b-a7f9-49d8-9a83-e8c7eaf15716.png">
