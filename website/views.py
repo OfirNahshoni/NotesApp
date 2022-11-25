@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from .forms import ProfileForm
 from .models import User, Note
 from . import db
-import json
 import base64
+import re
 
 
 views = Blueprint('views', __name__)
@@ -72,12 +72,19 @@ def update_profile():
         user.profession = form.profession.data
         user.addition_details = form.addition_details.data
         img = form.img.data
-        # Checking if image has been inserted and validations
+        
+        # Regular expression for phone number
+
+        ## Validations
+        # Phone number
         if len(form.phone_number.data) != 10:
             flash('Phone number must be exactly 10 digits', category='error')
             return redirect(url_for('views.update_profile'))
+        
+        # Image
         elif not img:
             user.img_filename, user.img = None, None
+        ## Correct - add to database
         else:
             user.img, user.img_filename = form.img.data.read(), secure_filename(img.filename)
         db.session.commit()  # Update changes to database
