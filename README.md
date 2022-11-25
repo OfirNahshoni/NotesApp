@@ -25,13 +25,10 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 ## Adding a note
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/58309185/191131752-a8ce6d36-0735-4f92-8cef-68e8d1cdaa3e.png">
 
-## Profile page (No profile)
-<img width="394" alt="image" src="https://user-images.githubusercontent.com/58309185/191131996-3cf6ca76-0e57-4ccc-83ec-2f0b4f13e06f.png">
-
 ## Edit profile page
 <img width="760" alt="image" src="https://user-images.githubusercontent.com/58309185/191132019-60aa3c1b-a7f9-49d8-9a83-e8c7eaf15716.png">
 
-## Profile page (existing profile)
+## Profile page
 <img width="374" alt="image" src="https://user-images.githubusercontent.com/58309185/191132159-cf27b17f-4314-41c7-837e-b7c176a192e5.png">
 
 # Running the App - type in CMD:
