@@ -31,14 +31,9 @@ The Flask application is seperated into two Bluprints: auth, views. The first is
 ## Profile page (existing profile)
 <img width="374" alt="image" src="https://user-images.githubusercontent.com/58309185/191132159-cf27b17f-4314-41c7-837e-b7c176a192e5.png">
 
-# Running the App:
-First activate the virtual enviroment by typing (on command line prompt!!):
-<br />
-env\Scripts\activate (and then you should see '(env)' in the start of the new line)
-<br />
-Then run the Web Server by typing:
-<br />
-python -m main
+# Running the App - type in CMD:
+\env\Scripts\activate <br />
+python-m main
 
 # Viewing the App:
 Go to URL: http://127.0.0.1:5000
