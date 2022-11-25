@@ -1,7 +1,9 @@
 # NotesMaster-FullStack-WebApp
-## Description
-FullStack Web Application, with BackEnd in Flask (Python) and FrontEnd with HTML.
 This is a notes manager website, which stores all user's info (profile is optional) and all notes.
+First you need to sign up, then you can add as many notes as you like, and even create your profile card with additional details about yourself. This website is only to practice and enhance my skills in Flask Sever-Side micro framework.
+
+## Technologies
+FullStack Web Application, with BackEnd in Flask (Python) and FrontEnd with HTML.
 The main branch (name: 'main') is a very basic Web App.
 The Flask application is seperated into two Bluprints: auth, views. The first is used for the login, sign-up, logout operations. The second is used for all other requests, like render home page and delete Note from the database.
 
